@@ -1,88 +1,47 @@
-LSTM-Based Time Series Forecasting – Cooling Loads (2023)
+LSTM-Based Cooling Load Forecasting  
+Author: [Your Name]
 
-=== Introduction ===
-The Long Short-Term Memory (LSTM) network is a specialized type of Recurrent Neural Network (RNN)
-designed for time series and sequential data processing. It addresses the "short-term memory"
-limitations of classic RNNs, making it ideal for learning long-term dependencies and capturing
-seasonal or periodic trends.
+=== Theoretical Background ===
 
-In this project, an LSTM model is trained to forecast cooling energy consumption using historical
-data from 2023, measured at 15-minute intervals. The model is capable of learning:
+The Long Short-Term Memory (LSTM) network is a specialized architecture within Recurrent Neural Networks (RNNs) designed to handle sequential data. 
+Traditional RNNs struggle with learning long-range dependencies due to vanishing gradients. LSTM overcomes this by introducing memory cells and gating mechanisms that regulate information flow over time.
 
-- How past consumption patterns influence current load
-- Complex, nonlinear temporal structures
-- Seasonal variations even without external features (e.g., weather)
+Each LSTM unit contains:
+- **Cell State (C):** Long-term memory that persists across time steps
+- **Forget Gate (f):** Decides what information to discard
+- **Input Gate (i):** Determines what new data to store
+- **Output Gate (o):** Chooses what part of the memory to expose
 
-=== Theoretical Basis ===
-Each LSTM unit consists of internal mechanisms called "gates" that regulate information flow:
+This structure allows LSTM models to remember important signals over long periods while ignoring noise and irrelevant fluctuations — ideal for time series tasks like energy forecasting.
 
-- **Cell State (C)**: Preserves long-term memory
-- **Forget Gate (f)**: Filters out irrelevant information
-- **Input Gate (i)**: Decides what new information to store
-- **Output Gate (o)**: Determines what to output based on memory
+=== Why Use LSTM for This Project ===
 
-These components interact mathematically to balance memory retention and forgetting.
+This project focuses on forecasting *cooling energy loads* based on past consumption patterns recorded at 15-minute intervals throughout 2023.
+Such data contains both short-term (hourly/daily) and long-term (seasonal) dependencies.
 
-=== Advantages and Limitations ===
+LSTM is well-suited for this task because it can:
+- Learn from long historical sequences
+- Capture both nonlinear trends and hidden seasonality
+- Perform well even without external inputs (like weather data)
 
-Advantages:
-- Learns long-term dependencies
-- Handles nonlinear and seasonal data well
-- Robust forecasting performance
-- Outperforms simple RNNs in most time series tasks
+The goal is to predict daily cooling energy consumption for December 2023 based on earlier patterns.
 
-Limitations:
-- Higher computational cost
-- Needs more data for effective training
-- Longer training time and tuning effort
-- Sensitive to hyperparameters
+=== Input Data Description ===
 
-=== Forecasting Results – Cooling Loads (December 2023) ===
+- **File Format:** Excel (.xlsx)
+- **Resolution:** 15-minute intervals
+- **Date Range:** January 1 – December 31, 2023
+- **Total Entries:** 35,040 (96 per day × 365 days)
 
-This section summarizes the LSTM model’s performance in forecasting cooling energy loads
-for December 2023.
+**Columns:**
+1. **Timestamp** (e.g., "1/1/23 0:00") – beginning of each 15-minute interval
+2. **Cooling Load (kWh)** – energy used during the interval, stored using commas as decimal separators (e.g., "0,08")
 
-**Model Workflow:**
-- Loads Excel dataset with 35,040 entries (15-minute intervals for full year)
-- Splits into training (Jan–Nov: 32,065 records) and testing (Dec: 2,975 records)
-- Applies Min-Max normalization
-- Constructs input sequences using historical time steps
-- Trains LSTM for 20 epochs with zero-sensitive loss
-- Saves model as `cooling_lstm_fullmodel.pth`
-- Forecasts December and evaluates predictions
+Preprocessing is required to:
+- Convert timestamps to Python `datetime`
+- Replace commas with periods and cast load values to float
 
-**Evaluation Metrics:**
-- MAE: 0.065 kWh → Very low average error
-- RMSE: 0.167 kWh → Stable performance across the test set
-- R² Score: 0.938 → Explains 93.8% of variance in true values
-- MAPE: ~1.6e15% → Distorted by near-zero ground truth values
-
-*Note:* For reliable MAPE, exclude records where ground truth < 0.1 kWh.
-
-**Commentary:**
-- The model captures daily and weekly consumption trends
-- Performs well without using weather data (purely historical kWh)
-- Future improvements could include multivariate inputs (e.g., temperature)
-
-=== Visualization Outputs ===
-
-- `cooling_december_prediction.png`: Actual vs Predicted loads (Dec only)
-- `full_year_with_december_overlay.png`: Full 2023 + Dec forecast highlight
-- `cooling_actual_full_year.png`: Real load data for all of 2023 (for trend analysis)
-
-=== Input Dataset – Cooling Load (2023) ===
-
-- Format: Excel `.xlsx`
-- Time Resolution: 15-minute intervals
-- Period: Jan 1, 2023 – Dec 31, 2023
-- Total Records: 35,040
-- Columns:
-  1. **Timestamp** (e.g., "1/1/23 0:00")
-  2. **Cooling Load (kWh)** – European decimal format (e.g., "0,08")
-
-Convert all kWh strings from "0,08" → "0.08" before processing.
-
-**Sample Data:**
+**Sample (first 5 rows):**
 | Timestamp     | kWh  |
 |---------------|------|
 | 1/1/23 0:00   | 0,08 |
@@ -90,17 +49,58 @@ Convert all kWh strings from "0,08" → "0.08" before processing.
 | 1/1/23 0:30   | 0,05 |
 | 1/1/23 0:45   | 0,04 |
 | 1/1/23 1:00   | 0,07 |
-| ...           | ...  |
 
-=== Additional Notes ===
-- Visualizations are generated using `matplotlib` before and after model training
-- Ensure correct datetime parsing and float conversion for accurate results
-- The LSTM pipeline is implemented in Python with Keras/TensorFlow
+=== Model Architecture & Workflow ===
+
+**Framework:** TensorFlow / Keras  
+**Target:** Univariate forecasting (cooling load only)  
+**Input:** Past `n` time steps of cooling load  
+**Output:** Forecasted next value(s)
+
+**Main Steps:**
+1. Load the full-year dataset (35,040 rows)
+2. Split into training (Jan–Nov, 32,065 entries) and testing (Dec, 2,975 entries)
+3. Normalize data using Min-Max scaling
+4. Create sliding input sequences for the LSTM
+5. Train the model over 20 epochs using a zero-sensitive loss function
+6. Save trained model as `cooling_lstm_fullmodel.pth`
+7. Forecast all December values and compare with ground truth
+
+=== Code Structure ===
+
+- `lstm_model.py` – defines the LSTM model
+- `train_and_predict.py` – full pipeline: load, preprocess, train, evaluate
+- `utils.py` – includes data normalization, sequence building, evaluation metrics
+- `results/` – stores output plots and model predictions
+
+Visualization Outputs:
+- `cooling_december_prediction.png` – actual vs predicted (December only)
+- `cooling_actual_full_year.png` – raw 2023 consumption plot
+- `full_year_with_december_overlay.png` – predicted December overlayed on real yearly trend
+
+=== Results & Evaluation ===
+
+Final model performance (on denormalized data):
+
+- **MAE:** 0.065 kWh  
+  → On average, the model deviates by just 0.065 kWh
+
+- **RMSE:** 0.167 kWh  
+  → Low variance in errors, indicating stability
+
+- **R² Score:** 0.938  
+  → 93.8% of the variance in actual values is explained by the model
+
+- **MAPE:** ~1.6e15%  
+  → Inflated due to division by small/near-zero actual values  
+  ⚠️ *Recommendation:* Filter out entries with load < 0.1 kWh when computing MAPE
+
+**Observations:**
+- The model captures both short- and long-term structure effectively
+- No external variables were used (purely historical load), yet performance is excellent
+- Future work could explore multivariate inputs (e.g., temperature, humidity)
 
 === Conclusion ===
-This project demonstrates the effectiveness of LSTM in forecasting seasonal energy consumption.
-With a high R² and low RMSE, the model captures both short-term fluctuations and long-term
-patterns in cooling load behavior. It provides a strong foundation for integrating energy forecasting
-into smart grid systems and energy-efficient building management.
 
-Author: [Your Name]
+This project demonstrates the effectiveness of LSTM in forecasting high-resolution energy time series. The model achieved high accuracy in predicting December cooling loads with minimal noise and consistent generalization. The workflow and results suggest LSTM is a strong candidate for energy demand forecasting, particularly in smart grid or building management systems.
+
