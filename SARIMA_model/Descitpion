@@ -1,0 +1,75 @@
+SARIMA Forecasting – Critical Load Prediction (2023)
+
+This folder contains a complete implementation of SARIMA-based forecasting for energy consumption, applied to three categories of critical electrical loads:
+
+Very Critical Loads
+
+Medium Critical Loads
+
+Low Critical Loads
+
+Forecasts are generated specifically for December 2023 using 15-minute resolution time series data for the full year.
+
+Dataset
+The data is stored in a file named RnD_CriticalLoadHistory_2023.xlsx (not included in this folder).
+Columns used:
+
+Very Critical Loads
+
+Medium Critical Loads
+
+Low Critical Loads
+
+Time range: January to December 2023
+Sampling interval: every 15 minutes
+
+Forecasting Method
+
+Stationarity tested using the Augmented Dickey-Fuller (ADF) test
+
+ACF and PACF plots used to estimate SARIMA parameters
+
+Forecasting performed using the SARIMAX class from statsmodels
+
+One SARIMA model trained per load category
+
+Forecast horizon: December 2023
+
+Files Included
+
+sarima_forecasting.py — Complete pipeline including preprocessing, modeling, evaluation, and plotting
+
+very_critical_sarima_forecast.csv — December forecast vs actual for very critical loads
+
+medium_critical_sarima_forecast.csv — December forecast vs actual for medium critical loads
+
+low_critical_sarima_forecast.csv — December forecast vs actual for low critical loads
+
+*_full_year_forecast.png — Plots showing full-year actual data with December forecast overlay
+
+How to Use
+
+Make sure the Excel dataset is available and update the file path in sarima_forecasting.py.
+
+Run the script using Python:
+
+nginx
+Αντιγραφή
+Επεξεργασία
+python sarima_forecasting.py
+Forecasts and visualizations will be saved in the current folder.
+
+Dependencies
+
+pandas
+
+numpy
+
+matplotlib
+
+statsmodels
+
+scikit-learn
+
+Install them using pip if needed.
+
