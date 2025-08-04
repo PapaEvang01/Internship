@@ -66,12 +66,16 @@ Preprocessing is required to:
 6. Save trained model as `cooling_lstm_fullmodel.pth`
 7. Forecast all December values and compare with ground truth
 
-=== Code Structure ===
+=== Folder Structure ===
 
-- `lstm_model.py` – defines the LSTM model
-- `train_and_predict.py` – full pipeline: load, preprocess, train, evaluate
-- `utils.py` – includes data normalization, sequence building, evaluation metrics
-- `results/` – stores output plots and model predictions
+LSTM_model/
+│
+├── code/
+│   └── cooling_Loads_predictions_with_LSTM.ipynb   # Main notebook: loading data, training LSTM, forecasting
+│
+├── inputs/                                         # Folder with input dataset
+│
+├── results/                                        # Folder with generated outputs
 
 Visualization Outputs:
 - `cooling_december_prediction.png` – actual vs predicted (December only)
