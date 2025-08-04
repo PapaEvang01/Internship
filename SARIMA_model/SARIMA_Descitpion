@@ -10,7 +10,7 @@ The goal is to predict the load values for December 2023 based on historical beh
 The data is recorded in 15-minute intervals, enabling fine-grained modeling of daily and seasonal usage trends.
 
 Included in this folder:
-- Python script (sarima_forecasting.py) that executes the entire modeling pipeline
+- Python script (in google colab, SARIMA.ipynd) that executes the entire modeling pipeline
 - Forecast results in CSV format for each load category
 - Visualization plots for both the December predictions and full-year trends
 
@@ -28,10 +28,12 @@ SARIMA Model Details:
 - Each load type is modeled independently
 
 Why SARIMA:
-SARIMA is well-suited for time series data with stable cycles or repetitive usage patterns. It combines classical ARIMA modeling with additional structure to capture periodic trends such as daily or weekly routines. This makes it ideal for electrical load forecasting in settings with regular operating hours and infrastructure behaviors.
+SARIMA is well-suited for time series data with stable cycles or repetitive usage patterns. It combines classical ARIMA modeling with additional structure to capture periodic trends such as daily or weekly routines.
+This makes it ideal for electrical load forecasting in settings with regular operating hours and infrastructure behaviors.
 
 Results:
-The SARIMA model achieved strong predictive performance on all three load categories. The Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are consistently low, indicating close alignment between predictions and actual values.
+The SARIMA model achieved strong predictive performance on all three load categories. The Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are consistently low, 
+indicating close alignment between predictions and actual values.
 
 Performance summary:
 - Very Critical Loads:
@@ -47,4 +49,5 @@ Performance summary:
   Excellent fit, with minimal error and strong short-term forecasting behavior.
 
 Conclusion:
-This SARIMA-based forecasting solution is effective for environments with structured energy patterns and regular load profiles. The script is modular and can be adapted for other datasets with similar characteristics.
+This SARIMA-based forecasting solution is effective for environments with structured energy patterns and regular load profiles. 
+The script is modular and can be adapted for other datasets with similar characteristics.
