@@ -42,9 +42,7 @@ Sample (first 12 rows):
 Additional Visualization:
 
 This folder also contains a full-year plot of the actual cooling load values:
-
 - File: cooling_actual_full_year.png  
 - Description: Displays the evolution of the cooling energy consumption from January to December 2023.
-This plot is generated before training the LSTM model and is useful for identifying trends, seasonality, and patterns in the original data.
 
-Make sure to parse the timestamp column as datetime and convert kWh values to float for proper time series processing.
+This plot is generated before training the LSTM model and is useful for identifying trends, seasonality, and patterns in the original data.
