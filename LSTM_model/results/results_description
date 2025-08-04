@@ -1,0 +1,51 @@
+LSTM Forecasting Results – Cooling Loads (December 2023)
+
+This report summarizes the results of the LSTM-based model for predicting daily cooling energy loads using time series data from January to December 2023 (15-minute intervals).
+
+Model Workflow Summary:
+- The script loads the full-year Excel dataset (35,040 records)
+- Splits the data into training (first 32065 records) and testing (last 2975 records for December)
+- Applies Min-Max normalization
+- Creates input sequences for the LSTM using past timesteps
+- Trains the model for 20 epochs using a zero-sensitive loss function
+- Saves the trained model (cooling_lstm_fullmodel.pth)
+- Predicts the entire month of December and evaluates results using multiple metrics
+
+Final Evaluation Metrics (on unnormalized kWh values):
+
+- Mean Absolute Error (MAE): 0.065 kWh  
+  → On average, predictions deviate by just 0.065 kWh from actual values. Very accurate.
+
+- Root Mean Squared Error (RMSE): 0.167 kWh  
+  → Indicates low overall error variance — the model is stable across the test set.
+
+- Mean Absolute Percentage Error (MAPE): ~1.6 × 10¹⁵ %  
+  → Unrealistically high due to near-zero values in the ground truth data. Filtering out timestamps with load < 0.1 kWh is recommended before MAPE calculation.
+
+- R-squared Score (R²): 0.938  
+  → The model explains 93.8% of the variance in actual cooling load values — excellent performance for time series forecasting.
+
+Commentary on Cooling Load Forecasting:
+- The LSTM model successfully captures both short-term and long-term patterns in the cooling load signal.
+- It can generalize the daily/weekly dependencies effectively, even without external input features (e.g., weather).
+- If temperature or humidity data were available, the model could be further improved with multivariate inputs.
+- The goal of achieving RMSE < 2 kWh is clearly met.
+
+Visualization Outputs:
+- cooling_december_prediction.png  
+  → Overlay of actual vs predicted cooling load values for December 2023.
+
+- full_year_with_december_overlay.png  
+  → Full-year cooling load plot with the LSTM-predicted December values highlighted.
+
+- cooling_actual_full_year.png  
+  → Pure visualization of the actual cooling load data from January to December 2023 (used for trend/seasonality analysis).
+
+Model Performance Notes:
+- The training process shows consistent loss reduction and convergence over 20 epochs.
+- All evaluation metrics (except MAPE) confirm high model accuracy.
+- MAPE is distorted due to division by small values — to fix this, exclude time steps with ground truth < 0.1 kWh before computing percentage error.
+
+Conclusion:
+The LSTM model demonstrates strong forecasting capability for seasonal energy time series with minimal noise and consistent behavior. 
+The achieved accuracy (MAE = 0.065, R² = 0.938) confirms that the model captures the underlying structure of cooling loads effectively.
