@@ -4,7 +4,8 @@
 
 This repository contains the complete implementation of two forecasting pipelines for energy load prediction, developed during my summer internship at **ΙΩΝΙΚΗ**, a company based in Xanthi, Greece.
 
-During this internship, I applied my Python and deep learning skills to support energy forecasting for a real-world autonomous hybrid energy system. The project focused on modeling and predicting both **critical loads** and **cooling loads** using statistical and neural network approaches.
+During this internship, I applied my Python and deep learning skills to support energy forecasting for a real-world autonomous hybrid energy system. 
+The project focused on modeling and predicting both **critical loads** and **cooling loads** using statistical and neural network approaches.
 
 ---
 
@@ -19,7 +20,8 @@ The energy system under study includes:
 - **Cooling Loads** – Variable, dependent on temperature
 - **Environmental Data** – Solar irradiance and weather forecasts
 
-The objective is to achieve **energy autonomy** across both daily and seasonal cycles. Predicting energy consumption—especially cooling loads—is essential for intelligent load scheduling, battery use, and energy optimization.
+The objective is to achieve **energy autonomy** across both daily and seasonal cycles. 
+Predicting energy consumption—especially cooling loads—is essential for intelligent load scheduling, battery use, and energy optimization.
 
 ---
 
@@ -79,7 +81,7 @@ The long-term goal is to generalize these models to **forecast a full year ahead
 
 ---
 
-### 🧾 Sample Data (after conversion)
+### 🧾 Sample Data
 
 | Timestamp     | Irradiance | PV→Bat | PV→Load | Bat→Load | PV Prod | VCL  | MCL  | LCL  | Cooling | Total |
 |---------------|------------|--------|---------|----------|---------|------|------|------|---------|-------|
@@ -96,7 +98,7 @@ The long-term goal is to generalize these models to **forecast a full year ahead
 The models were evaluated by predicting **December 2023**, using the preceding 11 months for training.  
 This practical forecasting window aligns with how energy systems operate: predicting the upcoming period based on observed past behavior.
 
-✔️ A successful December forecast indicates readiness to forecast **any future month or full year**, aiding in long-term system design, scheduling, and energy planning.
+A successful December forecast indicates readiness to forecast **any future month or full year**, aiding in long-term system design, scheduling, and energy planning.
 
 ---
 ---
@@ -129,10 +131,6 @@ SARIMA_model/
 │ └── SARIMA.ipynb # Full pipeline: decomposition, tuning, training, forecasting
 ├── inputs/ # Critical load input data (15-minute resolution)
 ├── results/ # Forecasts and plots
-
-markdown
-Αντιγραφή
-Επεξεργασία
 
 #### 📤 Output Summary
 
@@ -184,10 +182,6 @@ LSTM_model/
 ├── inputs/ # Input: 15-min cooling load data (2023)
 ├── results/ # Output plots and predictions
 
-pgsql
-Αντιγραφή
-Επεξεργασία
-
 #### 📊 Input Dataset
 
 - Format: `.xlsx` (15-minute intervals)
@@ -237,8 +231,7 @@ Both models were evaluated on **December 2023**, using metrics such as:
 - **MAE (Mean Absolute Error)**
 - **RMSE (Root Mean Squared Error)**
 - **R² (R-squared / Coefficient of Determination)**
-- (⚠️ Note: MAPE was computed but excluded due to distortion from near-zero values.)
-
+  
 ---
 
 ### 🔢 LSTM – Cooling Load Forecasting Results
@@ -249,12 +242,10 @@ Both models were evaluated on **December 2023**, using metrics such as:
 | RMSE   | 0.167 kWh |
 | R²     | 0.938 |
 
-✅ **Interpretation:**
+ **Interpretation:**
 - The model is highly accurate, with predictions deviating by less than 0.07 kWh on average.
 - RMSE confirms stable prediction across the test set.
 - The R² score indicates that the model explains **93.8%** of the variance in actual cooling loads.
-
-⚠️ **MAPE:** ~1.6e15% (unreliable due to division by near-zero actual values; should be filtered before computing).
 
 ---
 
@@ -266,7 +257,7 @@ Both models were evaluated on **December 2023**, using metrics such as:
 | Medium Critical Load| ~0.04     | ~0.06      |
 | Low Critical Load   | ~0.05     | ~0.08      |
 
-✅ **Interpretation:**
+ **Interpretation:**
 - SARIMA models performed well across all three load types.
 - Prediction errors remained small and consistent, suitable for planning critical resource availability.
 
