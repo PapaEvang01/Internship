@@ -6,7 +6,8 @@ This folder contains a complete SARIMA-based solution for forecasting energy con
 - Medium Critical Loads
 - Low Critical Loads
 
-The goal is to predict the load values for December 2023 based on historical behavior observed over the full calendar year. The data is recorded in 15-minute intervals, enabling fine-grained modeling of daily and seasonal usage trends.
+The goal is to predict the load values for December 2023 based on historical behavior observed over the full calendar year. 
+The data is recorded in 15-minute intervals, enabling fine-grained modeling of daily and seasonal usage trends.
 
 Included in this folder:
 - Python script (sarima_forecasting.py) that executes the entire modeling pipeline
