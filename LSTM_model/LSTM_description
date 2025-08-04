@@ -1,32 +1,39 @@
-LSTM Model – Forecasting Critical Energy Loads (December 2023)
+Introduction
 
-This folder contains a complete implementation of an LSTM-based deep learning model
-for forecasting electricity consumption in three types of critical loads:
+The Long Short-Term Memory (LSTM) network is a special type of Recurrent Neural Network (RNN)
+designed to process and forecast time series and other sequential data. By solving the
+"short-term memory" limitation of classic RNNs, LSTM is well-suited for learning long-term
+dependencies and capturing seasonal or periodic patterns.
 
-- Very Critical Loads
-- Medium Critical Loads
-- Low Critical Loads
+In the context of Cooling Load forecasting, an LSTM model can learn:
+- How current energy consumption depends on past behavior
+- Complex nonlinear relationships and hidden seasonal structures
+- To generate accurate forecasts even when limited external variables are available
 
-The objective is to train a neural network that learns historical load patterns
-from January to November 2023 and predicts the consumption for December 2023.
+Theoretical Basis
 
-Input Data:
-- File: RnD_CriticalLoadHistory_2023.xlsx (same dataset as used in SARIMA)
-- Time resolution: 15-minute intervals
-- Features: Timestamp + three load series (very, medium, low critical)
-- Data preprocessing includes normalization and reshaping into sequences for training
+The LSTM architecture is based on unique internal cell blocks that manage information flow.
+Each LSTM unit includes:
 
-Model Overview:
-- Architecture: Long Short-Term Memory (LSTM) network built with PyTorch
-- Input: Sequential windows of past load values
-- Output: Predicted load values for the next time step(s)
-- Each load category is modeled independently
+- Cell State (C): Carries long-term information across time steps
+- Gates:
+  - Forget Gate (f): Determines what information should be discarded
+  - Input Gate (i): Decides which new values should be stored in memory
+  - Output Gate (o): Controls what part of the memory is used to generate output
 
-Outputs:
-- CSV files with actual and predicted values for December
-- Plot images comparing LSTM forecasts vs actual data
-- Trained model saved as a PyTorch checkpoint file (lstm_model.pth)
-- Printed evaluation metrics (e.g., MAE, RMSE)
+These gates interact through well-defined mathematical operations that allow the LSTM
+to retain important information over long periods and discard irrelevant short-term noise.
 
-This folder is part of a larger forecasting project comparing classical time series methods (SARIMA)
-with deep learning techniques (LSTM) for short-term energy prediction.
+Advantages and Limitations
+
+Advantages:
+- Capable of capturing long-term dependencies
+- Handles nonlinear and seasonal patterns effectively
+- Performs well in time series forecasting problems
+- More resistant to overfitting compared to standard RNNs
+
+Limitations:
+- Higher computational requirements
+- Requires larger datasets for reliable training
+- More complex to implement and tune
+- Training time is typically longer than simpler models
