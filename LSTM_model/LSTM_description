@@ -94,10 +94,6 @@ Final model performance (on denormalized data):
 - **R² Score:** 0.938  
   → 93.8% of the variance in actual values is explained by the model
 
-- **MAPE:** ~1.6e15%  
-  → Inflated due to division by small/near-zero actual values  
-  ⚠️ *Recommendation:* Filter out entries with load < 0.1 kWh when computing MAPE
-
 **Observations:**
 - The model captures both short- and long-term structure effectively
 - No external variables were used (purely historical load), yet performance is excellent
@@ -105,5 +101,7 @@ Final model performance (on denormalized data):
 
 === Conclusion ===
 
-This project demonstrates the effectiveness of LSTM in forecasting high-resolution energy time series. The model achieved high accuracy in predicting December cooling loads with minimal noise and consistent generalization. The workflow and results suggest LSTM is a strong candidate for energy demand forecasting, particularly in smart grid or building management systems.
+This project demonstrates the effectiveness of LSTM in forecasting high-resolution energy time series. 
+The model achieved high accuracy in predicting December cooling loads with minimal noise and consistent generalization.
+The workflow and results suggest LSTM is a strong candidate for energy demand forecasting, particularly in smart grid or building management systems.
 
