@@ -277,5 +277,5 @@ This forecasting capability can support:
 - Prioritization of critical loads  
 - Smart integration of renewables and storage systems
 
-🔋📉🔮 The system is now ready to forecast **entire future years** with confidence — a critical step toward fully autonomous, AI-driven energy management.
+The system is now ready to forecast **entire future years** with confidence — a critical step toward fully autonomous, AI-driven energy management.
 
