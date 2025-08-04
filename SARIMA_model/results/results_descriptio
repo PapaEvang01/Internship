@@ -1,0 +1,52 @@
+SARIMA Model – Forecasting Results Summary (December 2023)
+
+This folder includes the forecasted results for December 2023 based on SARIMA models
+trained on Very, Medium, and Low Critical Load data.
+
+Output Files:
+
+1. CSV Predictions:
+   - very_critical_sarima_forecast.csv
+   - medium_critical_sarima_forecast.csv
+   - low_critical_sarima_forecast.csv
+
+   Each file contains:
+   - Timestamp
+   - Actual_Load_kWh
+   - Predicted_Load_kWh
+
+2. Forecast Plots:
+   - very_critical_loads_december_forecast.png
+   - medium_critical_loads_december_forecast.png
+   - low_critical_loads_december_forecast.png
+   (Plots comparing actual vs forecasted values for December)
+
+3. Full-Year Plots with December Forecast Overlay:
+   - very_critical_full_year_forecast.png
+   - medium_critical_full_year_forecast.png
+   - low_critical_full_year_forecast.png
+
+Evaluation Metrics:
+
+Evaluating forecast for Very Critical Loads...
+MAE:  0.0075 kWh  
+RMSE: 0.0087 kWh  
+
+Evaluating forecast for Medium Critical Loads...
+MAE:  0.0074 kWh  
+RMSE: 0.0086 kWh  
+
+Evaluating forecast for Low Critical Loads...
+MAE:  0.0075 kWh  
+RMSE: 0.0087 kWh  
+
+Interpretation (per load category):
+
+1. Very Critical Loads:
+   The SARIMA model predicts nearly perfectly due to the stable, repetitive patterns.
+
+2. Medium Critical Loads:
+   Equally accurate, with only minor deviations during peak demand periods.
+
+3. Low Critical Loads:
+   Very good model fit overall — deviations are minimal and within expected bounds.
