@@ -1,0 +1,31 @@
+Dataset Description – Critical Load Forecasting (2023)
+
+File: RnD_CriticalLoadHistory_2023.xlsx
+Format: Excel file (.xlsx)
+Resolution: 15-minute intervals
+Period: January 1, 2023 to December 31, 2023
+Total entries: 35,040 rows (96 intervals × 365 days)
+
+Columns:
+1. Timestamp
+   - Format: MM/DD/YY HH:MM
+   - Example: 1/1/23 0:00, 1/1/23 0:15, ...
+   - Represents the start time of each 15-minute interval
+
+2. Very Critical Loads
+   - Unit: kilowatt-hours (kWh)
+   - Description: High-priority energy loads (e.g., essential infrastructure)
+
+3. Medium Critical Loads
+   - Unit: kilowatt-hours (kWh)
+   - Description: Medium-priority loads (e.g., office systems, support)
+
+4. Low Critical Loads
+   - Unit: kilowatt-hours (kWh)
+   - Description: Auxiliary or less time-sensitive systems
+
+Notes:
+- The second row of the Excel file contains unit labels ("kWh") and should be skipped during loading.
+- Decimal values use a comma as the separator (e.g., "0,15") and must be converted to dot notation ("0.15") in Python.
+- Time series data is univariate per load type (i.e., three independent series).
+- Used for SARIMA and LSTM forecasting models in the internship project.
