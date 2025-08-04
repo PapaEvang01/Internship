@@ -1,0 +1,49 @@
+SARIMA Model – December Load Forecasting (2023)
+
+This folder contains a complete SARIMA-based solution for forecasting energy consumption across three categories of critical electrical loads:
+
+- Very Critical Loads
+- Medium Critical Loads
+- Low Critical Loads
+
+The goal is to predict the load values for December 2023 based on historical behavior observed over the full calendar year. The data is recorded in 15-minute intervals, enabling fine-grained modeling of daily and seasonal usage trends.
+
+Included in this folder:
+- Python script (sarima_forecasting.py) that executes the entire modeling pipeline
+- Forecast results in CSV format for each load category
+- Visualization plots for both the December predictions and full-year trends
+
+How it works:
+1. The script loads and cleans the dataset, which includes timestamps and three separate load measurements.
+2. Each time series is checked for stationarity using statistical testing.
+3. ACF and PACF plots are generated to explore autoregressive and moving average components.
+4. SARIMA models are configured and trained using specified parameters.
+5. Forecasts for the entire month of December are generated and evaluated.
+6. Final results are saved and visualized.
+
+SARIMA Model Details:
+- Model type: SARIMA (Seasonal AutoRegressive Integrated Moving Average)
+- Configuration used: (p=1, d=0, q=1) with no seasonal components for simplicity, and s=96 (one day at 15-minute intervals)
+- Each load type is modeled independently
+
+Why SARIMA:
+SARIMA is well-suited for time series data with stable cycles or repetitive usage patterns. It combines classical ARIMA modeling with additional structure to capture periodic trends such as daily or weekly routines. This makes it ideal for electrical load forecasting in settings with regular operating hours and infrastructure behaviors.
+
+Results:
+The SARIMA model achieved strong predictive performance on all three load categories. The Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are consistently low, indicating close alignment between predictions and actual values.
+
+Performance summary:
+- Very Critical Loads:
+  MAE = 0.0075 kWh, RMSE = 0.0087 kWh
+  The model closely follows the stable baseline of the series.
+
+- Medium Critical Loads:
+  MAE = 0.0074 kWh, RMSE = 0.0086 kWh
+  Slight deviations during peak times, otherwise highly accurate.
+
+- Low Critical Loads:
+  MAE = 0.0075 kWh, RMSE = 0.0087 kWh
+  Excellent fit, with minimal error and strong short-term forecasting behavior.
+
+Conclusion:
+This SARIMA-based forecasting solution is effective for environments with structured energy patterns and regular load profiles. The script is modular and can be adapted for other datasets with similar characteristics.
