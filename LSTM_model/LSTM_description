@@ -36,7 +36,7 @@ The goal is to predict daily cooling energy consumption for December 2023 based 
 1. **Timestamp** (e.g., "1/1/23 0:00") – beginning of each 15-minute interval
 2. **Cooling Load (kWh)** – energy used during the interval, stored using commas as decimal separators (e.g., "0,08")
 
-Preprocessing is required to:
+!Preprocessing is required to:
 - Convert timestamps to Python `datetime`
 - Replace commas with periods and cast load values to float
 
