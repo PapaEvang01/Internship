@@ -19,9 +19,6 @@ Final Evaluation Metrics (on unnormalized kWh values):
 - Root Mean Squared Error (RMSE): 0.167 kWh  
   → Indicates low overall error variance — the model is stable across the test set.
 
-- Mean Absolute Percentage Error (MAPE): ~1.6 × 10¹⁵ %  
-  → Unrealistically high due to near-zero values in the ground truth data. Filtering out timestamps with load < 0.1 kWh is recommended before MAPE calculation.
-
 - R-squared Score (R²): 0.938  
   → The model explains 93.8% of the variance in actual cooling load values — excellent performance for time series forecasting.
 
@@ -31,15 +28,19 @@ Commentary on Cooling Load Forecasting:
 - If temperature or humidity data were available, the model could be further improved with multivariate inputs.
 - The goal of achieving RMSE < 2 kWh is clearly met.
 
-Visualization Outputs:
-- cooling_december_prediction.png  
-  → Overlay of actual vs predicted cooling load values for December 2023.
+=== Output Files & Visualizations ===
 
-- full_year_with_december_overlay.png  
-  → Full-year cooling load plot with the LSTM-predicted December values highlighted.
+- **`cooling_december_prediction.png`**  
+  → Plot of actual vs predicted cooling loads for December 2023.
 
-- cooling_actual_full_year.png  
-  → Pure visualization of the actual cooling load data from January to December 2023 (used for trend/seasonality analysis).
+- **`full_year_with_december_overlay.png`**  
+  → Visualization of the full 2023 load with predicted December values highlighted.
+
+- **`cooling_actual_full_year.png`**  
+  → Pure visualization of the actual cooling load from January to December 2023.
+
+- **`december_predictions.xlsx`**  
+  → Exported spreadsheet with timestamped predicted and actual cooling loads for December 2023.
 
 Model Performance Notes:
 - The training process shows consistent loss reduction and convergence over 20 epochs.
