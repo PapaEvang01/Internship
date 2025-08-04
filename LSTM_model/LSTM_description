@@ -1,0 +1,32 @@
+LSTM Model – Forecasting Critical Energy Loads (December 2023)
+
+This folder contains a complete implementation of an LSTM-based deep learning model
+for forecasting electricity consumption in three types of critical loads:
+
+- Very Critical Loads
+- Medium Critical Loads
+- Low Critical Loads
+
+The objective is to train a neural network that learns historical load patterns
+from January to November 2023 and predicts the consumption for December 2023.
+
+Input Data:
+- File: RnD_CriticalLoadHistory_2023.xlsx (same dataset as used in SARIMA)
+- Time resolution: 15-minute intervals
+- Features: Timestamp + three load series (very, medium, low critical)
+- Data preprocessing includes normalization and reshaping into sequences for training
+
+Model Overview:
+- Architecture: Long Short-Term Memory (LSTM) network built with PyTorch
+- Input: Sequential windows of past load values
+- Output: Predicted load values for the next time step(s)
+- Each load category is modeled independently
+
+Outputs:
+- CSV files with actual and predicted values for December
+- Plot images comparing LSTM forecasts vs actual data
+- Trained model saved as a PyTorch checkpoint file (lstm_model.pth)
+- Printed evaluation metrics (e.g., MAE, RMSE)
+
+This folder is part of a larger forecasting project comparing classical time series methods (SARIMA)
+with deep learning techniques (LSTM) for short-term energy prediction.
