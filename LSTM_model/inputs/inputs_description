@@ -1,0 +1,49 @@
+Input Dataset – Cooling Load Forecasting (LSTM)
+
+File format: Excel (.xlsx)  
+Resolution: 15-minute intervals  
+Period: January 1, 2023 – December 31, 2023  
+Total records: 35,040 (96 records per day × 365 days)  
+Used in: LSTM-based forecasting for December 2023
+
+Columns:
+1. Timestamp
+   - Format: MM/DD/YY HH:MM
+   - Example: 1/1/23 0:00, 1/1/23 0:15, ...
+   - Represents the start of each 15-minute measurement interval
+
+2. Cooling Load
+   - Unit: kilowatt-hours (kWh)
+   - Description: Cooling energy consumption at each time interval
+   - Values are stored with a comma as the decimal separator (e.g., "0,08")
+
+Notes:
+- The file contains only one load column (kWh), unlike the multi-column critical load dataset.
+- All values must be converted to decimal format before processing (e.g., "0,08" → "0.08").
+- This dataset is used to train the LSTM model using historical sequences of past cooling loads.
+
+Sample (first 12 rows):
+
+| Timestamp     | kWh  |
+|---------------|------|
+| 1/1/23 0:00    | 0,08 |
+| 1/1/23 0:15    | 0,05 |
+| 1/1/23 0:30    | 0,05 |
+| 1/1/23 0:45    | 0,04 |
+| 1/1/23 1:00    | 0,07 |
+| 1/1/23 1:15    | 0,05 |
+| 1/1/23 1:30    | 0,09 |
+| 1/1/23 1:45    | 0,03 |
+| 1/1/23 2:00    | 0,08 |
+| 1/1/23 2:15    | 0,06 |
+| 1/1/23 2:30    | 0,07 |
+| 1/1/23 2:45    | 0,07 |
+
+Additional Visualization:
+
+This folder also contains a full-year plot of the actual cooling load values:
+
+- File: cooling_actual_full_year.png  
+- Description: Displays the evolution of the cooling energy consumption from January to December 2023. This plot is generated before training the LSTM model and is useful for identifying trends, seasonality, and patterns in the original data.
+
+Make sure to parse the timestamp column as datetime and convert kWh values to float for proper time series processing.
