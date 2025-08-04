@@ -2,30 +2,54 @@ Dataset Description – Critical Load Forecasting (2023)
 
 File: RnD_CriticalLoadHistory_2023.xlsx
 Format: Excel file (.xlsx)
-Resolution: 15-minute intervals
-Period: January 1, 2023 to December 31, 2023
-Total entries: 35,040 rows (96 intervals × 365 days)
+Time Resolution: Every 15 minutes
+Total Duration: January 1, 2023 to December 31, 2023
+Total Records: 35,040 rows (365 days × 96 intervals/day)
 
 Columns:
 1. Timestamp
    - Format: MM/DD/YY HH:MM
    - Example: 1/1/23 0:00, 1/1/23 0:15, ...
-   - Represents the start time of each 15-minute interval
+   - Marks the beginning of each 15-minute interval
 
 2. Very Critical Loads
    - Unit: kilowatt-hours (kWh)
-   - Description: High-priority energy loads (e.g., essential infrastructure)
+   - Description: High-priority systems (e.g., core infrastructure, safety-critical)
 
 3. Medium Critical Loads
    - Unit: kilowatt-hours (kWh)
-   - Description: Medium-priority loads (e.g., office systems, support)
+   - Description: Systems with medium operational priority
 
 4. Low Critical Loads
    - Unit: kilowatt-hours (kWh)
-   - Description: Auxiliary or less time-sensitive systems
+   - Description: Lower-priority or auxiliary loads (e.g., lighting, environment)
 
 Notes:
-- The second row of the Excel file contains unit labels ("kWh") and should be skipped during loading.
-- Decimal values use a comma as the separator (e.g., "0,15") and must be converted to dot notation ("0.15") in Python.
-- Time series data is univariate per load type (i.e., three independent series).
-- Used for SARIMA and LSTM forecasting models in the internship project.
+- The second row in the Excel file contains unit labels ("kWh") and must be skipped (`skiprows=1`).
+- All numeric values use a comma (",") as the decimal separator and must be converted to dot (".") before processing.
+- Each load category is treated as a separate univariate time series.
+- The file is used by both SARIMA and LSTM forecasting models.
+
+Sample (first 8 rows):
+
+| Timestamp     | Very Critical | Medium Critical | Low Critical |
+|---------------|----------------|------------------|----------------|
+| 1/1/23 0:00    | 0,15           | 0,06             | 0,08           |
+| 1/1/23 0:15    | 0,16           | 0,07             | 0,08           |
+| 1/1/23 0:30    | 0,15           | 0,09             | 0,08           |
+| 1/1/23 0:45    | 0,16           | 0,08             | 0,07           |
+| 1/1/23 1:00    | 0,16           | 0,07             | 0,07           |
+| 1/1/23 1:15    | 0,16           | 0,07             | 0,08           |
+| 1/1/23 1:30    | 0,14           | 0,06             | 0,07           |
+| 1/1/23 1:45    | 0,16           | 0,09             | 0,08           |
+
+Included Images (in this folder):
+- 3 plots showing full-year load data:
+  - very_critical_loads_full_year.png
+  - medium_critical_loads_full_year.png
+  - low_critical_loads_full_year.png
+
+- 3 plots showing only December load data:
+  - very_critical_loads_december.png
+  - medium_critical_loads_december.png
+  - low_critical_loads_december.png
