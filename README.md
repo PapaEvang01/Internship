@@ -220,7 +220,7 @@ LSTM_model/
 📅 **Prediction Scope for Both Models**
 
 Both models are trained on data from **January–November 2023** and tested on **December 2023**.  
-The success of this setup demonstrates their potential to **forecast any future month or year**, enab
+The success of this setup demonstrates their potential to **forecast any future month or full year**, enabling proactive and intelligent energy planning.
 
 ---
 
