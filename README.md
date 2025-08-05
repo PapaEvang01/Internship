@@ -10,14 +10,14 @@ The project supports real-world **autonomous hybrid energy systems** by predicti
 
 The energy system under study includes:
 
-- **Photovoltaic Panels:** 40 kW
-- **Battery Storage:** 120 kWh
-- **Charge Controller & Inverter**
-- **Critical Loads:** 5 kW (e.g., 24/7 servers)
-- **Cooling Loads:** Dynamic, temperature-driven
+- **Photovoltaic Panels:** 40 kW  
+- **Battery Storage:** 120 kWh  
+- **Charge Controller & Inverter**  
+- **Critical Loads:** 5 kW (e.g., 24/7 servers)  
+- **Cooling Loads:** Dynamic, temperature-driven  
 - **Environmental Data:** Solar irradiance & weather forecasts
 
-**Goal:** Enable intelligent energy planning and autonomy through accurate, data-driven load forecasting.
+🎯 **Goal:** Enable intelligent energy planning and autonomy through accurate, data-driven load forecasting.
 
 ---
 
@@ -27,8 +27,8 @@ The energy system under study includes:
   PV peaks at 12:00–15:00. Cooling load increases in the afternoon and drops at night.
 
 - **Seasonal Pattern:**
-  - **Summer:** High production & high cooling demand
-  - **Winter:** Low production & low cooling demand
+  - **Summer:** High production & high cooling demand  
+  - **Winter:** Low production & low cooling demand  
   - **Spring/Fall:** Balanced
 
 A **wind turbine** supports generation in low-sun seasons (mainly winter).
@@ -37,62 +37,57 @@ A **wind turbine** supports generation in low-sun seasons (mainly winter).
 
 ## 🎯 Project Goals
 
-- Forecast short- and mid-term energy demand
-- Support proactive battery and load scheduling
+- Forecast short- and mid-term energy demand  
+- Support proactive battery and load scheduling  
 - Enhance long-term system planning
 
 ---
 
 ## 🧠 Modeling Approach
 
-Two distinct forecasting pipelines:
+This project uses two forecasting pipelines tailored to each load type:
 
-1. Cooling Loads → Forecasted with LSTM
-Cooling loads represent the energy required for temperature regulation (e.g., air conditioning), especially during warmer months.
-They are:
+### 1️⃣ Cooling Loads → Forecasted with LSTM
 
-Highly variable – fluctuate based on external temperature, humidity, and time of day
+Cooling loads represent the energy needed for air conditioning and temperature control—especially during summer. These loads are:
 
-Nonlinear – patterns are not strictly periodic
+- Highly variable (depend on temperature, humidity, time of day)  
+- Nonlinear and seasonally influenced  
+- Not strictly periodic or stationary  
 
-Seasonal and weather-sensitive
+🔹 **Why LSTM?**
 
-🔹 Why LSTM?
-LSTM (Long Short-Term Memory) networks are ideal for this task because they:
+Long Short-Term Memory (LSTM) networks are ideal for such patterns because they:
 
-Learn complex temporal dependencies over long sequences
+- Learn long-term dependencies in sequential data  
+- Handle noisy, non-stationary trends  
+- Model complex environmental effects on energy consumption  
+- Predict accurately using past consumption patterns only
 
-Handle noisy, non-stationary data
+---
 
-Capture trends influenced by environmental factors
+### 2️⃣ Critical Loads → Forecasted with SARIMA
 
-Provide accurate predictions even with limited external variables
+Critical loads refer to essential operations (e.g., servers) that run continuously and follow a stable pattern. These loads are:
 
-2. Critical Loads → Forecasted with SARIMA
-Critical loads refer to essential systems (e.g., servers, control equipment) that must operate continuously.
-They are:
+- Predictable and repetitive  
+- Less impacted by weather or time of day  
+- Best modeled using statistical methods
 
-Stable and predictable – follow consistent daily/weekly usage patterns
+🔹 **Why SARIMA?**
 
-Less affected by environmental variation
+Seasonal ARIMA (SARIMA) is effective for:
 
-Suitable for statistical modeling
+- Stationary and seasonally stable time series  
+- Capturing recurring consumption cycles  
+- Producing interpretable, low-variance forecasts
 
-🔹 Why SARIMA?
-SARIMA (Seasonal ARIMA) is well-suited for:
+---
 
-Stationary or seasonally stable time series
+📅 **Training Period:** January – November 2023  
+🔮 **Forecast Target:** December 2023  
 
-Modeling recurring patterns and trends
-
-Producing interpretable and low-variance forecasts for critical infrastructure
-
-📅 Training Period: January – November 2023
-🔮 Forecast Target: December 2023
-
-This hybrid setup ensures robust performance across both structured and dynamic energy consumption behaviors.
-
-
+This hybrid setup ensures robust forecasting for both **structured** and **dynamic** load behaviors.
 
 ---
 
@@ -103,18 +98,20 @@ This hybrid setup ensures robust performance across both structured and dynamic 
 - **Total Records:** 35,040  
 - **Time Span:** Jan 1 – Dec 31, 2023  
 
-### Key Features
-- Solar irradiance & PV production
-- Battery discharge
-- Load categories: Very/Medium/Low Critical + Cooling
+### Key Features:
+- Solar irradiance  
+- PV production  
+- Battery discharge  
+- Critical Loads (Very / Medium / Low)  
+- Cooling Load  
 - Total energy consumption
 
 ---
 
 ## 🔮 Forecasting Scope
 
-Each model was trained on 11 months and tested on December 2023 — mimicking a real-world scenario.  
-This validates the models’ ability to generalize and forecast **future months or entire years**.
+Each model was trained on data from **January to November** and tested on **December 2023**, simulating a real-world scenario.  
+This validates their ability to generalize and forecast **future months or full years**.
 
 ---
 
@@ -128,14 +125,14 @@ This validates the models’ ability to generalize and forecast **future months 
 
 ### Features:
 - ADF Stationarity Test  
-- ACF/PACF for hyperparameter tuning  
-- Seasonal modeling with `(p,d,q)(P,D,Q)[s]` configs
+- ACF/PACF for parameter tuning  
+- Seasonal modeling with `(p,d,q)(P,D,Q)[s]` configuration
 
 ### Output Summary:
-- Forecast CSVs (per load type)
-- Monthly forecast plots (`*_december_forecast.png`)
-- Full-year overlay plots
-- Metrics: MAE, RMSE
+- Forecasted CSVs per load type  
+- December forecast plots (`*_december_forecast.png`)  
+- Full-year plots with overlay  
+- Evaluation metrics: MAE, RMSE
 
 ---
 
@@ -143,17 +140,17 @@ This validates the models’ ability to generalize and forecast **future months 
 
 📁 `LSTM_model/`  
 🎯 **Target:** Cooling Load  
-🧠 **Technique:** Long Short-Term Memory (LSTM) Network
+🧠 **Technique:** Long Short-Term Memory (LSTM)
 
 ### Features:
-- Handles variable, nonlinear sequences
-- Captures seasonal + long-term dependencies
-- Trained using normalized sequences
+- Trained on normalized sequences  
+- Handles nonlinear and noisy behavior  
+- Captures both seasonal and daily dynamics
 
 ### Output Summary:
-- Forecast plots for December and full year
-- Saved model: `cooling_lstm_fullmodel.pth`
-- Metrics: MAE, RMSE, R²
+- Forecasted plots for December and full year  
+- Saved model: `cooling_lstm_fullmodel.pth`  
+- Evaluation metrics: MAE, RMSE, R²
 
 ---
 
@@ -161,43 +158,43 @@ This validates the models’ ability to generalize and forecast **future months 
 
 ### 🔢 Cooling Load Forecasting (LSTM)
 
-| Metric | Value |
-|--------|-------|
-| MAE    | 0.065 kWh |
-| RMSE   | 0.167 kWh |
-| R²     | 0.938     |
+| Metric | Value      |
+|--------|------------|
+| MAE    | 0.065 kWh  |
+| RMSE   | 0.167 kWh  |
+| R²     | 0.938      |
 
-✅ Strong performance with 93.8% variance explained.
+✅ The LSTM model explained over **93%** of the variance in actual cooling loads.
 
 ---
 
 ### 🔢 Critical Load Forecasting (SARIMA)
 
-| Load Type           | MAE (kWh) | RMSE (kWh) |
-|---------------------|-----------|------------|
-| Very Critical Load  | ~0.03     | ~0.05      |
-| Medium Critical Load| ~0.04     | ~0.06      |
-| Low Critical Load   | ~0.05     | ~0.08      |
+| Load Type            | MAE (kWh) | RMSE (kWh) |
+|----------------------|-----------|------------|
+| Very Critical Load   | ~0.03     | ~0.05      |
+| Medium Critical Load | ~0.04     | ~0.06      |
+| Low Critical Load    | ~0.05     | ~0.08      |
 
-✅ Reliable predictions for system-critical consumption.
+✅ SARIMA models performed consistently across all critical load categories.
 
 ---
 
 ## ✅ Conclusion
 
-This internship project successfully combined **classical time-series methods** and **deep learning** to forecast energy demand in an autonomous hybrid energy system.
+This internship project demonstrates how combining **statistical** and **deep learning** methods enables effective forecasting for autonomous hybrid energy systems.
 
-- **SARIMA** is ideal for stable, seasonal loads.
-- **LSTM** handles dynamic, weather-influenced cooling behavior.
+- **SARIMA** was ideal for structured, consistent critical loads  
+- **LSTM** captured complex, nonlinear cooling behaviors
 
-These forecasts enable:
+These models support:
 
-- Battery & load prioritization  
-- Proactive scheduling  
-- Smart renewable integration  
+- Intelligent battery/inverter scheduling  
+- Prioritization of critical operations  
+- Optimized integration of renewable sources
 
-The system is now capable of **year-round predictions**, supporting intelligent, AI-driven energy management.
+📈 The system is now capable of **year-round forecasting**, enabling AI-driven energy management and planning.
 
 ---
 
-📌 *Developed as part of my internship at ΙΩΝΙΚΗ (Summer 2025)*  
+📌 *Developed as part of my internship at ΙΩΝΙΚΗ (Summer 2025)*
