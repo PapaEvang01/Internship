@@ -107,22 +107,17 @@ This hybrid setup ensures robust forecasting for both **structured** and **dynam
 - Total energy consumption
 
 ### 🧾 Sample Records
-Below is a preview of the raw dataset (first few rows):
 
-Timestamp	Irradiance (Wh/m²)	PV→Battery (kWh)	PV→Load (kWh)	Bat→Load (kWh)	PV Prod (kWh)	VCL (kWh)	MCL (kWh)	LCL (kWh)	Cooling (kWh)	Total (kWh)
-1/1/23 0:00	0.00	0.00	0.00	0.37	0.00	0.15	0.06	0.08	0.08	0.37
-1/1/23 0:15	0.00	0.00	0.00	0.36	0.00	0.16	0.07	0.08	0.05	0.36
-1/1/23 0:30	0.00	0.00	0.00	0.37	0.00	0.15	0.09	0.08	0.05	0.37
-1/1/23 0:45	0.00	0.00	0.00	0.35	0.00	0.16	0.08	0.07	0.04	0.35
-1/1/23 1:00	0.00	0.00	0.00	0.36	0.00	0.16	0.07	0.07	0.07	0.36
-1/1/23 1:15	0.00	0.00	0.00	0.36	0.00	0.16	0.07	0.08	0.05	0.36
-1/1/23 1:30	0.00	0.00	0.00	0.36	0.00	0.14	0.06	0.07	0.09	0.36
-1/1/23 1:45	0.00	0.00	0.00	0.36	0.00	0.16	0.09	0.08	0.03	0.36
-1/1/23 2:00	0.00	0.00	0.00	0.37	0.00	0.14	0.07	0.08	0.08	0.37
-1/1/23 2:15	0.00	0.00	0.00	0.35	0.00	0.16	0.07	0.06	0.06	0.35
+| Timestamp     | Irradiance (Wh/m²) | PV→Battery (kWh) | PV→Load (kWh) | Bat→Load (kWh) | PV Prod (kWh) | Very Critical (kWh) | Medium Critical (kWh) | Low Critical (kWh) | Cooling (kWh) | Total Consumption (kWh) |
+|---------------|--------------------|------------------|---------------|----------------|----------------|----------------------|------------------------|--------------------|----------------|--------------------------|
+| 1/1/23 00:00  | 0.00               | 0.00             | 0.00          | 0.37           | 0.00           | 0.15                 | 0.06                   | 0.08               | 0.08           | 0.37                     |
+| 1/1/23 00:15  | 0.00               | 0.00             | 0.00          | 0.36           | 0.00           | 0.16                 | 0.07                   | 0.08               | 0.05           | 0.36                     |
+| 1/1/23 00:30  | 0.00               | 0.00             | 0.00          | 0.37           | 0.00           | 0.15                 | 0.09                   | 0.08               | 0.05           | 0.37                     |
+| 1/1/23 00:45  | 0.00               | 0.00             | 0.00          | 0.35           | 0.00           | 0.16                 | 0.08                   | 0.07               | 0.04           | 0.35                     |
+| 1/1/23 01:00  | 0.00               | 0.00             | 0.00          | 0.36           | 0.00           | 0.16                 | 0.07                   | 0.07               | 0.07           | 0.36                     |
 
-ℹ️ All numeric values are expressed in kilowatt-hours (kWh) or Wh/m² for irradiance.
-The file was preprocessed to convert decimals (from comma to dot) and to parse timestamps.
+> ℹ️ All numeric values are expressed in **kilowatt-hours (kWh)**, except irradiance (**Wh/m²**).  
+> The file was preprocessed to convert decimal commas to dots and parse timestamps.
 
 ---
 
@@ -198,7 +193,7 @@ This validates their ability to generalize and forecast **future months or full 
 
 ---
 
-## ✅ Conclusion
+## Conclusion
 
 This internship project demonstrates how combining **statistical** and **deep learning** methods enables effective forecasting for autonomous hybrid energy systems.
 
