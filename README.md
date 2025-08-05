@@ -47,16 +47,52 @@ A **wind turbine** supports generation in low-sun seasons (mainly winter).
 
 Two distinct forecasting pipelines:
 
-### 1. **SARIMA** – For Critical Loads  
-- Suitable for stable, seasonal patterns  
-- Models: Very, Medium, and Low Critical Loads
+1. Cooling Loads → Forecasted with LSTM
+Cooling loads represent the energy required for temperature regulation (e.g., air conditioning), especially during warmer months.
+They are:
 
-### 2. **LSTM** – For Cooling Loads  
-- Captures non-linear, weather-influenced patterns  
-- Uses historical time series to predict future consumption
+Highly variable – fluctuate based on external temperature, humidity, and time of day
 
-**Training Data:** January–November 2023  
-**Forecast Target:** December 2023
+Nonlinear – patterns are not strictly periodic
+
+Seasonal and weather-sensitive
+
+🔹 Why LSTM?
+LSTM (Long Short-Term Memory) networks are ideal for this task because they:
+
+Learn complex temporal dependencies over long sequences
+
+Handle noisy, non-stationary data
+
+Capture trends influenced by environmental factors
+
+Provide accurate predictions even with limited external variables
+
+2. Critical Loads → Forecasted with SARIMA
+Critical loads refer to essential systems (e.g., servers, control equipment) that must operate continuously.
+They are:
+
+Stable and predictable – follow consistent daily/weekly usage patterns
+
+Less affected by environmental variation
+
+Suitable for statistical modeling
+
+🔹 Why SARIMA?
+SARIMA (Seasonal ARIMA) is well-suited for:
+
+Stationary or seasonally stable time series
+
+Modeling recurring patterns and trends
+
+Producing interpretable and low-variance forecasts for critical infrastructure
+
+📅 Training Period: January – November 2023
+🔮 Forecast Target: December 2023
+
+This hybrid setup ensures robust performance across both structured and dynamic energy consumption behaviors.
+
+
 
 ---
 
